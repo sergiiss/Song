@@ -1,71 +1,91 @@
-module BottlesOfBeer
-  class Song
+module Song
+  class NinetyNineBottlesOfBeer
+    attr_accessor :current_bottle_number
+
     def initialize
-      @ending               = "s"
-      @action_on_the_bottle = "Take one down and pass it around"
-      @bottles              = 99
+      @ending_of_primary_bottles = 's'
+      @action_on_the_bottle      = 'Take one down and pass it around'
+      @current_bottle_number     = 99
     end
 
     def print_couplets
-      print_initial_couplets
-      print_last_couplet
+      while have_enough_bottles?
+        puts current_couplet
+
+        @current_bottle_number -= 1
+      end
+    end
+
+    def current_couplet
+      if up_to_three_bottles_on_the_wall
+        set_the_conditions_for_the_initial_couplets
+      elsif two_bottles_on_the_wall
+        set_the_condition_for_two_bottles
+      elsif one_bottles_on_the_wall
+        set_a_conditions_for_one_bottle
+      elsif zero_bottles_on_the_wall
+        set_the_conditions_for_the_last_couplet
+      end
+
+      couplet
     end
 
     private
 
-    attr_reader :initial_number_of_bottles, :remaining_number_of_bottles,
-                :ending_of_the_word, :ending, :action_on_the_bottle, :bottles
+    attr_reader   :initial_number_of_bottles, :remaining_number_of_bottles,
+                  :ending_of_the_remaining_bottles, :ending_of_primary_bottles,
+                  :action_on_the_bottle
 
-    def print_initial_couplets
-      while bottles != 0
-        set_a_list_of_conditions
-        couplet
-
-        @bottles -= 1
-      end
+    def have_enough_bottles?
+      current_bottle_number >= 0
     end
 
-    def set_a_list_of_conditions
-      set_the_conditions_for_the_initial_couplets
-      set_the_condition_for_two_bottles
-      set_a_conditions_for_one_bottle
+    def up_to_three_bottles_on_the_wall
+      current_bottle_number > 2
     end
 
     def set_the_conditions_for_the_initial_couplets
-      @initial_number_of_bottles   = bottles
-      @remaining_number_of_bottles = bottles - 1
-      @ending_of_the_word          = "s"
+      @initial_number_of_bottles       = current_bottle_number
+      @remaining_number_of_bottles     = current_bottle_number - 1
+      @ending_of_the_remaining_bottles = 's'
+    end
+
+    def two_bottles_on_the_wall
+      current_bottle_number == 2
     end
 
     def set_the_condition_for_two_bottles
-      @ending_of_the_word = "" if bottles == 2
+      @initial_number_of_bottles       = current_bottle_number
+      @remaining_number_of_bottles     = current_bottle_number - 1
+      @ending_of_the_remaining_bottles = ''
+    end
+
+    def one_bottles_on_the_wall
+      current_bottle_number == 1
     end
 
     def set_a_conditions_for_one_bottle
-      if bottles == 1
-        @remaining_number_of_bottles  = "No more"
-        @initial_number_of_bottles    = bottles
-        @ending                       = ""
-      end
+      @initial_number_of_bottles   = current_bottle_number
+      @remaining_number_of_bottles = 'No more'
+      @ending_of_primary_bottles   = ''
     end
 
-    def print_last_couplet
-      set_the_conditions_for_the_last_couplet
-      couplet
+    def zero_bottles_on_the_wall
+      current_bottle_number == 0
     end
 
     def set_the_conditions_for_the_last_couplet
-      @action_on_the_bottle        = "Go to the store and buy some more"
-      @initial_number_of_bottles   = remaining_number_of_bottles
+      @initial_number_of_bottles   = 'No more'
       @remaining_number_of_bottles = 99
-      @ending                      = "s"
+      @action_on_the_bottle        = 'Go to the store and buy some more'
+      @ending_of_primary_bottles   = 's'
     end
 
     def couplet
-      puts  "#{initial_number_of_bottles} bottle#{ending} of beer on the wall, "    +
-            "#{initial_number_of_bottles}".downcase + " bottle#{ending} of beer.\n" +
-            "#{action_on_the_bottle}," + " #{remaining_number_of_bottles}".downcase +
-            " bottle#{ending_of_the_word} of beer on the wall.\n\n"
+      "#{initial_number_of_bottles} bottle#{ending_of_primary_bottles} of beer on the wall, "    +
+      "#{initial_number_of_bottles}".downcase + " bottle#{ending_of_primary_bottles} of beer.\n" +
+      "#{action_on_the_bottle}," + " #{remaining_number_of_bottles}".downcase +
+      " bottle#{ending_of_the_remaining_bottles} of beer on the wall.\n\n"
     end
   end
 end
