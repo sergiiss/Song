@@ -1,4 +1,4 @@
-require 'couplet'
+require_relative 'couplet'
 
 class NinetyNineBottlesOfBeer
   def initialize(start_bottle_number = 99)

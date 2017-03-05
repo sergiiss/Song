@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require 'couplet'
-require 'ninety_nine_bottles'
+require_relative 'couplet'
+require_relative 'ninety_nine_bottles'
 
 class TestSong < Minitest::Test
   def test_print_couplet_for_initial_bottles
