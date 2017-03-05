@@ -2,7 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'song'
+require 'ninety_nine_bottles'
 
-song = Song::NinetyNineBottlesOfBeer.new
-song.print_couplets
+song = NinetyNineBottlesOfBeer.new
+song.create_song
