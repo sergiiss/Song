@@ -5,14 +5,15 @@ require_relative 'ninety_nine_bottles'
 class TestSong < Minitest::Test
   def test_print_couplet_for_initial_bottles
     couplet = Couplet.new(98)
-    result = couplet.create_couplet
+    couplet.create_couplet
+    
     expected_result =
-    <<~COUPLET
-      98 bottles of beer on the wall, 98 bottles of beer.
-      Take one down and pass it around, 97 bottles of beer on the wall.\n
-    COUPLET
+      <<~COUPLET
+        98 bottles of beer on the wall, 98 bottles of beer.
+        Take one down and pass it around, 97 bottles of beer on the wall.\n
+      COUPLET
 
-    assert_equal expected_result, result
+    assert_equal expected_result, couplet.created_couplet
   end
 
   def test_print_couplet_for_two_bottles
