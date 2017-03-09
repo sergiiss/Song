@@ -1,4 +1,7 @@
 class Couplet
+  attr_reader :current_bottle_number
+  attr_reader :created_couplet
+  
   def initialize(current_bottle_number)
     @current_bottle_number     = current_bottle_number
 
@@ -24,7 +27,7 @@ class Couplet
 
   attr_reader :initial_number_of_bottles, :remaining_number_of_bottles,
               :ending_of_the_remaining_bottles, :ending_of_primary_bottles,
-              :action_on_the_bottle, :current_bottle_number
+              :action_on_the_bottle
 
   def up_to_three_bottles_on_the_wall?
     current_bottle_number > 2
@@ -68,9 +71,10 @@ class Couplet
   end
 
   def use_couplet_pattern
-    "#{initial_number_of_bottles} bottle#{ending_of_primary_bottles} of beer on the wall, "    +
-    "#{initial_number_of_bottles}".downcase + " bottle#{ending_of_primary_bottles} of beer.\n" +
-    "#{action_on_the_bottle}," + " #{remaining_number_of_bottles}".downcase +
-    " bottle#{ending_of_the_remaining_bottles} of beer on the wall.\n\n"
+    @created_couplet = 
+      "#{initial_number_of_bottles} bottle#{ending_of_primary_bottles} of beer on the wall, "    +
+      "#{initial_number_of_bottles}".downcase + " bottle#{ending_of_primary_bottles} of beer.\n" +
+      "#{action_on_the_bottle}," + " #{remaining_number_of_bottles}".downcase +
+      " bottle#{ending_of_the_remaining_bottles} of beer on the wall.\n\n"
   end
 end
