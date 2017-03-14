@@ -1,24 +1,29 @@
 require_relative 'couplet'
 
 class NinetyNineBottlesOfBeer
+  attr_reader :start_bottle_number
+  attr_reader :song
+
   def initialize(start_bottle_number = 99)
     @current_bottle_number = start_bottle_number
-    @song = song.to_s
+    @song = ""
   end
 
   def create_song
     while have_enough_bottles?
-      @song << current_couplet
+      collect_couplets_song
 
       @current_bottle_number -= 1
     end
-
-    song
   end
 
   private
 
-  attr_reader :current_bottle_number, :song
+  attr_reader :current_bottle_number
+
+  def collect_couplets_song
+    @song << current_couplet
+  end
 
   def have_enough_bottles?
     current_bottle_number >= 0
@@ -27,5 +32,7 @@ class NinetyNineBottlesOfBeer
   def current_couplet
     couplet = Couplet.new(current_bottle_number)
     couplet.create_couplet
+
+    couplet.created_couplet
   end
 end
